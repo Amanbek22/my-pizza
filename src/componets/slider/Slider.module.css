@@ -1,0 +1,10 @@
+.wrapper img {
+    margin: 40px 0;
+    border-radius: 35px;
+}
+.wrapper ul {
+    bottom: 60px;
+}
+ .wrapper li button:before {
+    font-size: 14px !important;
+}

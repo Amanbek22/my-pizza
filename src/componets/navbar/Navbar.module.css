@@ -1,0 +1,28 @@
+
+.modalWrapper {
+    height: 100vh;
+    width: 100vw;
+    background: #00000070;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9;
+    left: 100%;
+    transition: all 0.3s linear;
+
+}
+
+.modal {
+    width: 500px;
+    height: 100vh;
+    background: rgb(118, 216, 156);
+    position: absolute;
+    top: 0%;
+    right: 0;
+    z-index: 9;
+    transition: all 0.3s linear;
+}
+
+.opened {
+    left: 0;
+}
