@@ -35,7 +35,10 @@ export default function Navbar({ basket }) { // { basket: [] }
                     <hr />
                     <div>
                         {
-                            basket.map((pizza) => <div> {pizza.name} </div>)
+                            basket.map((pizza) => <div>
+                                {pizza.name}
+                                <div>{pizza.price}</div>
+                            </div>)
                         }
                     </div>
                 </div>
