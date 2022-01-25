@@ -11,7 +11,6 @@ export default function Main(props) {
             .then((res) => res.json())
             .then((data) => {
                 // Pizza Data 
-                console.log(data.data.data);
                 setPizzas(data.data.data)
             })
             .catch((error) => console.log(error))
