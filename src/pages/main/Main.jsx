@@ -7,7 +7,9 @@ export default function Main(props) {
     const [pizzas, setPizzas] = useState([]);
 
     useEffect(() => {
-        fetch("https://pizza-app-ulan.herokuapp.com/getall/pizza")
+        fetch("https://pizza-app-ulan.herokuapp.com/getall/pizza", {
+            method: "GET"
+        })
             .then((res) => res.json())
             .then((data) => {
                 // Pizza Data 
