@@ -39,9 +39,6 @@ function App() {
           <Admin setIsAuth={setIsAuth} />
         </Route> */}
         <PrivateRoute path="/dashboard" auth={isAuth} component={Dashboard} />
-        {/* <Route path="/dashboard">
-          <Dashboard />
-        </Route> */}
       </Switch>
     </div>
   );
