@@ -12,14 +12,23 @@ import Admin from './pages/admin/Admin.jsx';
 import Dashboard from './pages/dashboard/Dashboard.jsx';
 import PublicRoute from './route/PublicRoute.jsx';
 import PrivateRoute from './route/PrivateRoute.jsx';
+import { useSelector } from 'react-redux';
+
+
+function f(a, b) {
+  return a + b
+}
+
+f(5,5)
+
 
 function App() {
   const [basket, setBasket] = useState(JSON.parse(localStorage.getItem("basket")) || [])
-  const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem("auth")) || null);
+  const authData = useSelector((state) => state.auth.data)
 
   useEffect(() => {
-    localStorage.setItem("auth", JSON.stringify(isAuth))
-  }, [isAuth])
+    localStorage.setItem("auth", JSON.stringify(authData))
+  }, [authData])
 
   return (
     <div className="App">
@@ -36,13 +45,11 @@ function App() {
         </Route>
         <PublicRoute
           path="/admin"
-          auth={isAuth}
-          component={() => <Admin setIsAuth={setIsAuth} />} 
+          component={Admin} 
         />
         <PrivateRoute
           path="/dashboard"
-          auth={isAuth}
-          component={() => <Dashboard setIsAuth={setIsAuth} />}
+          component={Dashboard}
         />
       </Switch>
     </div>

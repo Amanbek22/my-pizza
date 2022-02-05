@@ -2,13 +2,16 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 
-export default function Admin({ setIsAuth }) {
+export default function Admin() {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("")
     const [error, setError] = useState("");
-    const [isDisabled, setIsDisabled] = useState(false)
+    const [isDisabled, setIsDisabled] = useState(false);
+
+    const dispatch = useDispatch();
 
     const submit = (e) => {
         e.preventDefault();
@@ -23,7 +26,11 @@ export default function Admin({ setIsAuth }) {
             .then((res) => {
                 console.log(res);
                 if (res.data?.token) {
-                    setIsAuth(res.data)
+                    // setIsAuth(res.data)
+                    dispatch({ 
+                        type: "success authorization",
+                        payload: res.data
+                     })
                 } else {
                     setError(res.data.msg);
                 }

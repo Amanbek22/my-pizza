@@ -4,9 +4,11 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import PizzaCard from '../../componets/pizzaCard/PizzaCard.jsx';
 import Api from '../../api/Api.js';
+import { useDispatch } from 'react-redux';
 
-export default function Dashboard({ setIsAuth }) {
+export default function Dashboard() {
   const [pizzas, setPizzas] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     Api.getAllPizzas()
@@ -20,7 +22,7 @@ export default function Dashboard({ setIsAuth }) {
     <Grid container spacing={2} >
       <Grid item xs={3}>
         <aside>
-          <Button onClick={() => setIsAuth(null)} variant="outlined" color="error">
+          <Button onClick={() => dispatch( { type: "logout auth" } )} variant="outlined" color="error">
             Logout
           </Button>
         </aside>
