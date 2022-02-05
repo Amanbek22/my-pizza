@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react"
 import css from "./Main.module.css"
 import PizzaCard from '../../componets/pizzaCard/PizzaCard.jsx'
-import Slider from '../../componets/slider/Slider.jsx'
+import Slider from '../../componets/slider/Slider.jsx';
+import Api from "../../api/Api.js"
 
 export default function Main(props) {
     const [pizzas, setPizzas] = useState([]);
 
     useEffect(() => {
-        fetch("https://pizza-app-ulan.herokuapp.com/getall/pizza", {
-            method: "GET"
-        })
-            .then((res) => res.json())
-            .then((data) => {
+        Api.getAllPizzas()
+            .then((res) => {
                 // Pizza Data 
-                setPizzas(data.data.data)
+                setPizzas(res.data.data.data)
             })
             .catch((error) => console.log(error))
     }, []);

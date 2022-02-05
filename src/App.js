@@ -16,7 +16,7 @@ import PrivateRoute from './route/PrivateRoute.jsx';
 function App() {
   const [basket, setBasket] = useState(JSON.parse(localStorage.getItem("basket")) || [])
   const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem("auth")) || null);
-  
+
   useEffect(() => {
     localStorage.setItem("auth", JSON.stringify(isAuth))
   }, [isAuth])
@@ -34,11 +34,16 @@ function App() {
           <Navbar basket={basket} />
           <Contacts />
         </Route>
-        <PublicRoute path="/admin" auth={isAuth} component={() => <Admin setIsAuth={setIsAuth} />} />
-        {/* <Route path="/admin">
-          <Admin setIsAuth={setIsAuth} />
-        </Route> */}
-        <PrivateRoute path="/dashboard" auth={isAuth} component={Dashboard} />
+        <PublicRoute
+          path="/admin"
+          auth={isAuth}
+          component={() => <Admin setIsAuth={setIsAuth} />} 
+        />
+        <PrivateRoute
+          path="/dashboard"
+          auth={isAuth}
+          component={() => <Dashboard setIsAuth={setIsAuth} />}
+        />
       </Switch>
     </div>
   );
