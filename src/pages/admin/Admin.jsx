@@ -1,10 +1,10 @@
-import { useHistory } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useState } from "react";
+import axios from "axios";
 
 
-export default function Admin( {setIsAuth} ) {
+export default function Admin({ setIsAuth }) {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("")
     const [error, setError] = useState("");
@@ -12,26 +12,20 @@ export default function Admin( {setIsAuth} ) {
 
     const submit = (e) => {
         e.preventDefault();
-        setIsDisabled(true)
-        fetch("https://pizza-app-ulan.herokuapp.com/admin", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                login: user,
-                password: password
-            })
+        setIsDisabled(true);
+        axios.post("https://pizza-app-ulan.herokuapp.com/admin", {
+            login: user,
+            password: password
         })
             .finally(() => {
-                setIsDisabled(false)  
+                setIsDisabled(false)
             })
-            .then((res) => res.json())
-            .then((data) => {
-                if(data?.token) {
-                    setIsAuth(data)
+            .then((res) => {
+                console.log(res);
+                if (res.data?.token) {
+                    setIsAuth(res.data)
                 } else {
-                    setError(data.msg);
+                    setError(res.data.msg);
                 }
             })
             .catch((error) => {
@@ -42,7 +36,7 @@ export default function Admin( {setIsAuth} ) {
         <h2>Authorization Admin</h2>
         <form onSubmit={submit}>
             <br />
-            <TextField value={user} onChange={(e) => setUser(e.target.value)}  id="outlined-basic" label="User" variant="outlined" />
+            <TextField value={user} onChange={(e) => setUser(e.target.value)} id="outlined-basic" label="User" variant="outlined" />
             <br />
             <br />
             <TextField value={password} onChange={(e) => setPassword(e.target.value)} id="outlined-basic" label="Password" variant="outlined" type="password" />
@@ -51,7 +45,7 @@ export default function Admin( {setIsAuth} ) {
             <Button disabled={isDisabled} type="submit" variant="outlined" size="large">
                 Login
             </Button>
-            <div className="error">{ error }</div>
+            <div className="error">{error}</div>
         </form>
     </div>;
 }
