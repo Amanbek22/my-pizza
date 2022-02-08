@@ -15,13 +15,6 @@ import PrivateRoute from './route/PrivateRoute.jsx';
 import { useSelector } from 'react-redux';
 
 
-function f(a, b) {
-  return a + b
-}
-
-f(5,5)
-
-
 function App() {
   const [basket, setBasket] = useState(JSON.parse(localStorage.getItem("basket")) || [])
   const authData = useSelector((state) => state.auth.data)

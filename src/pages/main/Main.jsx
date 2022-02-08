@@ -6,12 +6,12 @@ import Api from "../../api/Api.js"
 
 export default function Main(props) {
     const [pizzas, setPizzas] = useState([]);
-
+    
     useEffect(() => {
         Api.getAllPizzas()
             .then((res) => {
                 // Pizza Data 
-                setPizzas(res.data.data.data)
+                setPizzas(res.data)
             })
             .catch((error) => console.log(error))
     }, []);

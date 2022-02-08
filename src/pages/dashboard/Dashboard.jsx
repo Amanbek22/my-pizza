@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import PizzaCard from '../../componets/pizzaCard/PizzaCard.jsx';
 import Api from '../../api/Api.js';
 import { useDispatch } from 'react-redux';
+import { AUTH_LOGOUT } from '../../reudx/actionTypes';
+import {logoutAuth} from "../../reudx/actions/authActions"
 
 export default function Dashboard() {
   const [pizzas, setPizzas] = useState([]);
@@ -22,7 +24,7 @@ export default function Dashboard() {
     <Grid container spacing={2} >
       <Grid item xs={3}>
         <aside>
-          <Button onClick={() => dispatch( { type: "logout auth" } )} variant="outlined" color="error">
+          <Button onClick={() => dispatch( logoutAuth() )} variant="outlined" color="error">
             Logout
           </Button>
         </aside>

@@ -3,7 +3,8 @@ import Button from '@mui/material/Button';
 import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-
+import { SUCCESS_AUTHORIZATION } from '../../reudx/actionTypes';
+import { successAuth } from "../../reudx/actions/authActions"
 
 export default function Admin() {
     const [user, setUser] = useState("");
@@ -27,10 +28,7 @@ export default function Admin() {
                 console.log(res);
                 if (res.data?.token) {
                     // setIsAuth(res.data)
-                    dispatch({ 
-                        type: "success authorization",
-                        payload: res.data
-                     })
+                    dispatch(successAuth(res.data))
                 } else {
                     setError(res.data.msg);
                 }
