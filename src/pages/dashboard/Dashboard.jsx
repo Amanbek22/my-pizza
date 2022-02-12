@@ -1,26 +1,20 @@
-import { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import PizzaCard from '../../componets/pizzaCard/PizzaCard.jsx';
-import Api from '../../api/Api.js';
+import { useDispatch, useSelector } from 'react-redux';
+import {logoutAuth} from "../../reudx/actions/authActions"
 
-export default function Dashboard({ setIsAuth }) {
-  const [pizzas, setPizzas] = useState([]);
+export default function Dashboard() {
+  const dispatch = useDispatch();
+  const pizzas = useSelector((state) => state.pizza.data || []);
+  
 
-  useEffect(() => {
-    Api.getAllPizzas()
-      .then((res) => {
-        // Pizza Data 
-        setPizzas(res.data.data.data)
-      })
-      .catch((error) => console.log(error))
-  }, []);
   return <Container>
     <Grid container spacing={2} >
       <Grid item xs={3}>
         <aside>
-          <Button onClick={() => setIsAuth(null)} variant="outlined" color="error">
+          <Button onClick={() => dispatch( logoutAuth() )} variant="outlined" color="error">
             Logout
           </Button>
         </aside>
