@@ -1,10 +1,10 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://61da936a4593510017aff59d.mockapi.io/pizza/",
+    baseURL: "https://605b21f027f0050017c063b9.mockapi.io/api/v2/",
 })
 
 
 export default {
-    getAllPizzas: () => api.get("/pizzas"),
+    getAllPizzas: () => api.get("/pizza"),
 };

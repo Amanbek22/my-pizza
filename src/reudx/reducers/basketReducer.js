@@ -1,11 +1,13 @@
+import { ADD_PIZZA } from "../actionTypes.js";
 
-const initialState2 = { 
+const initialState = { 
     data: JSON.parse(localStorage.getItem("basket")) || null
 }
 
-export const basketReducer = (state = initialState2, action) => {
+export const basketReducer = (state = initialState, action) => {
     switch (action.type) {
-        //  Code here...
+        case ADD_PIZZA:
+            return {...state, data: [...state.data, action.payload]}
         default:
             return state;
     }

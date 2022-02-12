@@ -12,33 +12,49 @@ import Admin from './pages/admin/Admin.jsx';
 import Dashboard from './pages/dashboard/Dashboard.jsx';
 import PublicRoute from './route/PublicRoute.jsx';
 import PrivateRoute from './route/PrivateRoute.jsx';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllPizzaAsync, getAllPizzas } from './reudx/actions/pizzaActions.js';
+import Api from "./api/Api.js"
+import Preloader from './componets/preloader/Preloader.jsx';
 
 function App() {
-  const [basket, setBasket] = useState(JSON.parse(localStorage.getItem("basket")) || [])
   const authData = useSelector((state) => state.auth.data)
+  const basketData = useSelector((state) => state.basket.data)
+  const { isLoading, data } = useSelector((state) => state.pizza);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllPizzaAsync())
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("basket", JSON.stringify(basketData))
+  }, [basketData])
 
   useEffect(() => {
     localStorage.setItem("auth", JSON.stringify(authData))
   }, [authData])
 
+  if(isLoading) {
+    return <Preloader />
+  }
   return (
     <div className="App">
       <Switch>
         <Route exact path="/">
           <Header />
-          <Navbar basket={basket} />
-          <Main setBasket={setBasket} />
+          <Navbar />
+          <Main />
         </Route>
         <Route path="/contacts">
           <Header />
-          <Navbar basket={basket} />
+          <Navbar />
           <Contacts />
         </Route>
         <PublicRoute
           path="/admin"
-          component={Admin} 
+          component={Admin}
         />
         <PrivateRoute
           path="/dashboard"
