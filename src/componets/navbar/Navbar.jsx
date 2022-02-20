@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import css from "./Navbar.module.css"
 
-export default function Navbar({ basket }) { // { basket: [] } 
+export default function Navbar() { 
+    const basket = useSelector((state) => state.basket.data)
     const [isOpen, setIsOpen] = useState(false);
 
     const onModal = () => {

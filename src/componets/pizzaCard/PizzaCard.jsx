@@ -1,22 +1,20 @@
 import css from "./PizzaCard.module.css"
+import { useDispatch, useSelector } from "react-redux";
+import { addPizzaAC } from "../../reudx/actions/basketActions.js";
 
+export default function PizzaCard({ ...props }) { // props = { name: "", description: "", price: 1, id: 1 }
+    const dispatch = useDispatch();
+    const basketData = useSelector((state) => state.basket.data || [] );
 
-export default function PizzaCard({ setBasket, ...props }) { // props = { name: "", description: "", price: 1, id: 1 }
     const onSelect = () => {
-        const basket = JSON.parse(localStorage.getItem("basket")) || []
-        basket.forEach((item, index) => {
+        let count = 0;
+        basketData.forEach((item) => {
             if (item.id === props.id) {
-                return null
-            }else if (index === basket.length - 1)  {
-                basket.push(props)
-                localStorage.setItem("basket", JSON.stringify(basket))
-                setBasket(basket)
+                count++
             }
         })
-        if (basket.length === 0) {
-            basket.push(props)
-            localStorage.setItem("basket", JSON.stringify(basket))
-            setBasket(basket)
+        if (count === 0)  {
+            dispatch(addPizzaAC(props));
         }
     }
     return (

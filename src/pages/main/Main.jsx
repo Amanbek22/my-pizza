@@ -1,21 +1,10 @@
-import { useEffect, useState } from "react"
 import css from "./Main.module.css"
 import PizzaCard from '../../componets/pizzaCard/PizzaCard.jsx'
-import Slider from '../../componets/slider/Slider.jsx'
+import Slider from '../../componets/slider/Slider.jsx';
+import { useSelector } from "react-redux";
 
-export default function Main(props) {
-    const [pizzas, setPizzas] = useState([]);
-
-    useEffect(() => {
-        fetch("https://pizza-app-ulan.herokuapp.com/getall/pizza")
-            .then((res) => res.json())
-            .then((data) => {
-                // Pizza Data 
-                console.log(data.data.data);
-                setPizzas(data.data.data)
-            })
-            .catch((error) => console.log(error))
-    }, []);
+export default function Main() {
+    const pizzas = useSelector((state) => state.pizza.data || []);
 
     return (
         <div className='container'>
@@ -31,7 +20,6 @@ export default function Main(props) {
                         description={item.info}
                         price={item.price}
                         image={item.file}
-                        setBasket={props.setBasket}
                     />)
                 }
             </div>
